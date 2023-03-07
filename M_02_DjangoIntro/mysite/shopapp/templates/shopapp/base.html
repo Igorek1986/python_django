@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}Title block{% endblock %}
+        </title>
+    </head>
+    <body>
+        {% block body %}Block body{% endblock %}
+        <div class="footer">
+            {% now "Y" as current_year %}
+            Year {{ current_year }}
+        </div>
+    </body>
+</html>
