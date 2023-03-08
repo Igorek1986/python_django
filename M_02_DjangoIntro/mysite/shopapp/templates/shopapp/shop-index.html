@@ -1,0 +1,19 @@
+{% extends "shopapp/base.html" %}
+{% block title %}Shop Index!{% endblock %}
+{% block body %}
+    <h1 align="center">Hello world!</h1>
+    <ul>
+        {% for product, price in products %}<li>{{ product }} ({{ product|length }}) cost in {{ price }}$</li>{% endfor %}
+    </ul>
+    <div>{% lorem 3 p random %}</div>
+    <ul>
+        <li>Все с маленькой буквы:</li>
+        {% for product, price in products %}<li>{{ product|lower }}</li>{% endfor %}
+    </ul>
+    <ul>
+        <li>Товары дороже 500$:</li>
+        {% for product, price in products %}
+            {% if price > 499 %}<li>{{ product }}</li>{% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}
