@@ -2,16 +2,22 @@ from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.shortcuts import render, reverse
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from .models import Product, Order
 
 
 class ShopIndexView(View):
     def get(self, request: HttpRequest) -> HttpResponse:
-        context = {
-        }
-        return render(request, 'shopapp/shop-index.html', context=context)
+        context = {}
+        return render(request, "shopapp/shop-index.html", context=context)
 
 
 class ProductDetailsView(DetailView):
@@ -26,13 +32,25 @@ class ProductsListView(ListView):
     queryset = Product.objects.filter(archived=False)
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = "shopapp.add_product"
     model = Product
     fields = "name", "price", "description", "discount"
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.created_by = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
     success_url = reverse_lazy("shopapp:products_list")
 
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(
+    PermissionRequiredMixin,
+    UpdateView,
+):
+    permission_required = "shopapp.change_product"
     model = Product
     fields = "name", "price", "description", "discount"
     template_name_suffix = "_update_form"
@@ -56,16 +74,8 @@ class ProductDeleteView(DeleteView):
 
 
 class OrdersListView(ListView):
-    queryset = (
-        Order.objects
-        .select_related("user")
-        .prefetch_related("products")
-    )
+    queryset = Order.objects.select_related("user").prefetch_related("products")
 
 
 class OrderDetailView(DetailView):
-    queryset = (
-        Order.objects
-        .select_related("user")
-        .prefetch_related("products")
-    )
+    queryset = Order.objects.select_related("user").prefetch_related("products")
