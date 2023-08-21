@@ -1,0 +1,62 @@
+[
+{
+  "model": "shopapp.product",
+  "pk": 1,
+  "fields": {
+    "name": "iPhone",
+    "description": "iPhone",
+    "price": "999.00",
+    "discount": 0,
+    "created_at": "2023-08-08T14:43:24.220Z",
+    "archived": false
+  }
+},
+{
+  "model": "shopapp.product",
+  "pk": 2,
+  "fields": {
+    "name": "Macbook",
+    "description": "Macbook",
+    "price": "2999.00",
+    "discount": 0,
+    "created_at": "2023-08-08T14:44:51.614Z",
+    "archived": false
+  }
+},
+{
+  "model": "shopapp.product",
+  "pk": 3,
+  "fields": {
+    "name": "LG TV",
+    "description": "Television",
+    "price": "3999.00",
+    "discount": 10,
+    "created_at": "2023-08-08T14:46:38.648Z",
+    "archived": false
+  }
+},
+{
+  "model": "shopapp.product",
+  "pk": 4,
+  "fields": {
+    "name": "LG TV",
+    "description": "Television",
+    "price": "3999.00",
+    "discount": 10,
+    "created_at": "2023-08-08T14:48:33.529Z",
+    "archived": false
+  }
+},
+{
+  "model": "shopapp.product",
+  "pk": 5,
+  "fields": {
+    "name": "Samsung",
+    "description": "Television",
+    "price": "3000.00",
+    "discount": 30,
+    "created_at": "2023-08-08T14:48:54.880Z",
+    "archived": false
+  }
+}
+]
