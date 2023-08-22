@@ -7,12 +7,14 @@ from .models import Order
 class OrderDetailViewTestCase(TestCase):
     @classmethod
     def setUpClass(cls) -> None:
+        super().setUpClass()
         cls.user = User.objects.create_user(username="alex", password="qwerty")
         permission_view_order = Permission.objects.get(codename="view_order")
         cls.user.user_permissions.add(permission_view_order)
 
     @classmethod
     def tearDownClass(cls) -> None:
+        super().tearDownClass()
         cls.user.delete()
 
     def setUp(self) -> None:
@@ -50,12 +52,14 @@ class OrdersExportTestCase(TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
+        super().setUpClass()
         cls.user = User.objects.create_user(username="alex", password="qwerty")
         cls.user.is_staff = True
         cls.user.save()
 
     @classmethod
     def tearDownClass(cls) -> None:
+        super().tearDownClass()
         cls.user.delete()
 
     def setUp(self) -> None:
