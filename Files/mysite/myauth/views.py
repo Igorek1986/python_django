@@ -1,11 +1,15 @@
-from django.contrib.auth.decorators import login_required, permission_required, user_passes_test
+from django.contrib.auth.decorators import (
+    login_required,
+    permission_required,
+    user_passes_test,
+)
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LogoutView
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, UpdateView
 
 from .models import Profile
 
@@ -31,6 +35,22 @@ class RegisterView(CreateView):
         )
         login(request=self.request, user=user)
         return response
+
+
+class ProfileUpdateView(UpdateView):
+    form_class = User
+
+
+# class ProductUpdateView(UpdateView):
+#     model = Product
+#     fields = "name", "price", "description", "discount"
+#     template_name_suffix = "_update_form"
+#
+#     def get_success_url(self):
+#         return reverse(
+#             "shopapp:product_details",
+#             kwargs={"pk": self.object.pk},
+#         )
 
 
 class MyLogoutView(LogoutView):

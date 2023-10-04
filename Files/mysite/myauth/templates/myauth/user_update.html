@@ -1,0 +1,9 @@
+{% extends "./base.html" %} 
+{% block title %}
+  Update user profile
+{% endblock %}
+{% block body %}
+  <h1>Update user form</h1>
+  {% csrf_token %}
+  {{ form.as_p }}
+{% endblock blockname %}
