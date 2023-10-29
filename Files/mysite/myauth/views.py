@@ -9,13 +9,34 @@ from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, CreateView, UpdateView
+from django.views.generic import TemplateView, CreateView
+from django.shortcuts import render
 
 from .models import Profile
+from .forms import UserUpdateForm, ProfileUpdateForm
 
 
 class AboutMeView(TemplateView):
     template_name = "myauth/about-me.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.filter(user=self.request.user).first()
+        context["user"] = self.request.user
+        context["profile"] = profile
+        return context
+
+    def get(self, request):
+        # form = UserUpdateForm(instance=self.request.user)
+        form = ProfileUpdateForm()
+
+        return render(
+            request,
+            self.template_name,
+            {
+                "form": form,
+            },
+        )
 
 
 class RegisterView(CreateView):
@@ -35,22 +56,6 @@ class RegisterView(CreateView):
         )
         login(request=self.request, user=user)
         return response
-
-
-class ProfileUpdateView(UpdateView):
-    form_class = User
-
-
-# class ProductUpdateView(UpdateView):
-#     model = Product
-#     fields = "name", "price", "description", "discount"
-#     template_name_suffix = "_update_form"
-#
-#     def get_success_url(self):
-#         return reverse(
-#             "shopapp:product_details",
-#             kwargs={"pk": self.object.pk},
-#         )
 
 
 class MyLogoutView(LogoutView):
