@@ -1,32 +1,30 @@
 {% extends 'myauth/base.html' %}
-
-{% block title %}
-  About me
-{% endblock %}
-
-
+{% block title %}About me{% endblock %}
 {% block body %}
-  <h1>User info</h1>
-  {% if user.is_authenticated %}
-    <h2>Detail</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p }}
-    <button type="submit">Upload</button>
-  </form>
-  {% comment %}
-    <p>Username: {{ user.username }}</p>
-    <p>First name: {{ user.first_name }}</p>
-    <p>Last name: {{ user.last_name }}</p>
-    <p>Email: {{ user.email }}</p>
-  {% endcomment %}
-    <p>Bio: {{ user.profile.bio }}</p>
-    {% if user.profile.avatar %}
-    <img src="{{ user.avatar.url }}" alt="{{ user.username }}"> 
+    <h1>User info</h1>
+    {% if user.is_authenticated %}
+        <h2>Detail</h2>
+        <p>Username: {{ user.username }}</p>
+        <p>First name: {{ user.first_name }}</p>
+        <p>Last name: {{ user.last_name }}</p>
+        <p>Email: {{ user.email }}</p>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
+        {% if user.profile.avatar %}
+            <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}">
+            <div>
+                <a href="{% url 'myauth:avatar-update' pk=user.profile.pk %}">Изменить аватрку</a>
+            </div>
+        {% else %}
+            <p>No Avatar</p>
+        {% endif %}
     {% else %}
-      <p>No Avatar</p>
+        <h2>User is anonymous</h2>
     {% endif %}
-  {% else %}
-    <h2>User is anonymous</h2>
-  {% endif %}
+    <div>
+      <a href="{% url 'myauth:user-list' %}">Список пользователей</a>
+    </div>
 {% endblock %}

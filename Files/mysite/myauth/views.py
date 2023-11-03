@@ -3,17 +3,24 @@ from django.contrib.auth.decorators import (
     permission_required,
     user_passes_test,
 )
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LogoutView
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import (
+    ListView,
+    TemplateView,
+    CreateView,
+    UpdateView,
+    DetailView,
+)
 from django.shortcuts import render
 
 from .models import Profile
-from .forms import UserUpdateForm, ProfileUpdateForm
+from .forms import ProfileUpdateForm
 
 
 class AboutMeView(TemplateView):
@@ -27,8 +34,8 @@ class AboutMeView(TemplateView):
         return context
 
     def get(self, request):
-        # form = UserUpdateForm(instance=self.request.user)
-        form = ProfileUpdateForm()
+        profile = request.user.profile
+        form = ProfileUpdateForm(instance=profile)
 
         return render(
             request,
@@ -37,6 +44,34 @@ class AboutMeView(TemplateView):
                 "form": form,
             },
         )
+
+    def post(self, request: HttpRequest):
+        profile = request.user.profile
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            profile.save()
+        return render(request, "myauth/about-me.html")
+
+
+class AvatarUpdateView(UpdateView):
+    template_name = "myauth/avatar_update.html"
+    model = Profile
+    form_class = ProfileUpdateForm
+
+    def get_success_url(self):
+        return reverse_lazy("myauth:about-me")
+
+
+class UserDetailsView(DetailView):
+    template_name = "myauth/user-detail.html"
+    context_object_name = "user"
+    model = User
+
+
+class UserList(ListView):
+    template_name = "myauth/user-list.html"
+    context_object_name = "users"
+    model = User
 
 
 class RegisterView(CreateView):
