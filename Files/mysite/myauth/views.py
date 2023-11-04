@@ -17,7 +17,7 @@ from django.views.generic import (
     UpdateView,
     DetailView,
 )
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from .models import Profile
 from .forms import ProfileUpdateForm
@@ -47,10 +47,17 @@ class AboutMeView(TemplateView):
 
     def post(self, request: HttpRequest):
         profile = request.user.profile
-        form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+        form = ProfileUpdateForm(request.POST, request.FILES)
         if form.is_valid():
+            user_bio = form.cleaned_data.get("bio")
+            user_img_url = form.cleaned_data.get("avatar")
+            profile = request.user.profile
+            if user_bio:
+                profile.bio = user_bio
+            if user_img_url:
+                profile.avatar = user_img_url
             profile.save()
-        return render(request, "myauth/about-me.html")
+        return redirect(request.path)
 
 
 class AvatarUpdateView(UpdateView):
