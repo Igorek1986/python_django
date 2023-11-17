@@ -4,13 +4,13 @@ version = "0.1.0"
 description = ""
 authors = ["Igor Ponomarev <9129910001@mail.ru>"]
 readme = "README.md"
-packages = [{include = "python_django"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
 django = "^4.2.1"
 django-stubs = "^4.2.1"
 django-types = "^0.17.0"
+pillow = "^10.0.1"
 
 
 [build-system]
