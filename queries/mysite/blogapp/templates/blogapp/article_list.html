@@ -1,0 +1,26 @@
+{% extends "blogapp/base.html" %}
+{% block title %}
+  Article
+{% endblock %}
+{% block body %}
+  <h1>Article:</h1>
+  {% if articles %}
+    <div>
+      {% for article in articles %}
+        <p>{{ article.title }}</p>
+        <p>{{ article.pub_date }}</p>
+        <p>{{ article.author.name }}</p>
+        <p>{{ article.category.name }}</p>
+        Tags in article:
+        {% for tag in article.tags.all %}
+        {{ tag.name }}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <h3>Нет статей</h3>
+  {% endif %}
+  <div>
+    <a href="{% url 'blogapp:article_create' %}">Create article</a>
+  </div>
+{% endblock %}
