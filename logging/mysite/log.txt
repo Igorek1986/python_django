@@ -1,0 +1,55 @@
+2023-12-09 09:23:16,476 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-12-09 09:23:20,874 [INFO] shopapp.views: Rendering shop index
+2023-12-09 09:25:16,922 [INFO] django.utils.autoreload: /Users/igor/code/python_django/logging/mysite/mysite/settings.py changed, reloading.
+2023-12-09 09:25:17,583 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-12-09 09:26:34,873 [INFO] django.utils.autoreload: /Users/igor/code/python_django/logging/mysite/mysite/settings.py changed, reloading.
+2023-12-09 09:26:35,569 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-12-09 09:27:23,837 [INFO] django.utils.autoreload: /Users/igor/code/python_django/logging/mysite/mysite/urls.py changed, reloading.
+2023-12-09 09:27:24,485 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-12-09 09:27:44,054 [INFO] django.utils.autoreload: /Users/igor/code/python_django/logging/mysite/mysite/urls.py changed, reloading.
+2023-12-09 09:27:44,708 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-12-09 09:27:49,641 [INFO] django.utils.autoreload: /Users/igor/code/python_django/logging/mysite/mysite/urls.py changed, reloading.
+2023-12-09 09:27:50,283 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-12-09 09:28:16,831 [WARNING] django.request: Not Found: /__debug__/
+2023-12-09 09:28:32,882 [INFO] shopapp.views: Rendering shop index
+2023-12-09 09:29:10,858 [INFO] django.utils.autoreload: /Users/igor/code/python_django/logging/mysite/mysite/urls.py changed, reloading.
+2023-12-09 09:29:11,521 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-12-09 10:06:19,477 [INFO] shopapp.views: Rendering shop index
+2023-12-09 10:15:08,713 [INFO] shopapp.views: Rendering shop index
+2023-12-09 10:16:07,855 [WARNING] django.request: Not Found: /shop/ddd
+2023-12-09 10:18:58,444 [INFO] shopapp.views: Rendering shop index
+2023-12-09 10:19:13,455 [WARNING] django.request: Not Found: /favicon.ico
+2023-12-09 10:19:27,640 [INFO] shopapp.views: Rendering shop index
+2023-12-09 10:21:02,138 [INFO] shopapp.views: Rendering shop index
+2023-12-09 10:21:39,156 [WARNING] django.request: Not Found: /shop/s
+2023-12-09 10:24:46,384 [WARNING] django.request: Not Found: /shop/s
+2023-12-09 10:24:49,774 [INFO] shopapp.views: Rendering shop index
+2023-12-09 10:25:04,991 [INFO] shopapp.views: Rendering shop index
+2023-12-09 10:25:47,351 [INFO] shopapp.views: Rendering shop index
+2023-12-09 10:25:48,617 [INFO] shopapp.views: Rendering shop index
+2023-12-09 10:53:32,915 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-12-09 10:53:39,740 [ERROR] django.request: Internal Server Error: /shop/products/export/
+Traceback (most recent call last):
+  File "/Users/igor/Library/Caches/pypoetry/virtualenvs/python-django-iGtTLZHF-py3.12/lib/python3.12/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/igor/Library/Caches/pypoetry/virtualenvs/python-django-iGtTLZHF-py3.12/lib/python3.12/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/igor/Library/Caches/pypoetry/virtualenvs/python-django-iGtTLZHF-py3.12/lib/python3.12/site-packages/sentry_sdk/integrations/django/views.py", line 84, in sentry_wrapped_callback
+    return callback(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/igor/Library/Caches/pypoetry/virtualenvs/python-django-iGtTLZHF-py3.12/lib/python3.12/site-packages/django/views/generic/base.py", line 104, in view
+    return self.dispatch(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/igor/Library/Caches/pypoetry/virtualenvs/python-django-iGtTLZHF-py3.12/lib/python3.12/site-packages/django/views/generic/base.py", line 143, in dispatch
+    return handler(request, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/igor/code/python_django/logging/mysite/shopapp/views.py", line 150, in get
+    name = elem["nae"]
+           ~~~~^^^^^^^
+KeyError: 'nae'
+2023-12-09 10:54:17,948 [INFO] django.utils.autoreload: /Users/igor/code/python_django/logging/mysite/shopapp/views.py changed, reloading.
+2023-12-09 10:54:19,866 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
+2023-12-09 10:54:50,431 [INFO] django.utils.autoreload: /Users/igor/code/python_django/logging/mysite/shopapp/views.py changed, reloading.
+2023-12-09 10:54:51,724 [INFO] django.utils.autoreload: Watching for file changes with StatReloader
