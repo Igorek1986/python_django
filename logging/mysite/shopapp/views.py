@@ -1,11 +1,25 @@
 from timeit import default_timer
 
-from django.http import HttpResponse, HttpRequest, HttpResponseRedirect, JsonResponse
+from django.http import (
+    HttpResponse,
+    HttpRequest,
+    HttpResponseRedirect,
+    JsonResponse,
+)
 from django.shortcuts import render, reverse
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 from django_filters.rest_framework import DjangoFilterBackend
@@ -13,6 +27,11 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .forms import ProductForm
 from .models import Product, Order, ProductImage
 from .serializers import ProductSerializer
+
+import logging
+
+
+log = logging.getLogger(__name__)
 
 
 class ProductViewSet(ModelViewSet):
@@ -41,15 +60,17 @@ class ProductViewSet(ModelViewSet):
 class ShopIndexView(View):
     def get(self, request: HttpRequest) -> HttpResponse:
         products = [
-            ('Laptop', 1999),
-            ('Desktop', 2999),
-            ('Smartphone', 999),
+            ("Laptop", 1999),
+            ("Desktop", 2999),
+            ("Smartphone", 999),
         ]
         context = {
             "time_running": default_timer(),
             "products": products,
         }
-        return render(request, 'shopapp/shop-index.html', context=context)
+        log.debug("Prodicts for shop index: %s", products)
+        log.info("Rendering shop index")
+        return render(request, "shopapp/shop-index.html", context=context)
 
 
 class ProductDetailsView(DetailView):
@@ -105,26 +126,17 @@ class ProductDeleteView(DeleteView):
 
 
 class OrdersListView(LoginRequiredMixin, ListView):
-    queryset = (
-        Order.objects
-        .select_related("user")
-        .prefetch_related("products")
-        .all()
-    )
+    queryset = Order.objects.select_related("user").prefetch_related("products").all()
 
 
 class OrderDetailView(PermissionRequiredMixin, DetailView):
     permission_required = "shopapp.view_order"
-    queryset = (
-        Order.objects
-        .select_related("user")
-        .prefetch_related("products")
-    )
+    queryset = Order.objects.select_related("user").prefetch_related("products")
 
 
 class ProductsDataExportView(View):
     def get(self, request: HttpRequest) -> JsonResponse:
-        products = Product.objects.order_by('pk').all()
+        products = Product.objects.order_by("pk").all()
         products_data = [
             {
                 "pk": product.pk,
@@ -134,4 +146,7 @@ class ProductsDataExportView(View):
             }
             for product in products
         ]
+        elem = products_data[0]
+        name = elem["name"]
+        print("name:", name)
         return JsonResponse({"products": products_data})
