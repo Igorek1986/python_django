@@ -1,2 +1,2 @@
-delivery_address,promocode,user,receipt,products
-"eee","qqq","admin","orders/receipts/orders.csv","1"
+delivery_address,promocode,user_id,receipt
+"3eee","3qqq",1,"orders/receipts/orders.csv"

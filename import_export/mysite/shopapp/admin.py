@@ -132,7 +132,6 @@ class OrderAdmin(admin.ModelAdmin):
         reader = DictReader(csv_file)
 
         orders = [Order(**row) for row in reader]
-        print(orders)
         Order.objects.bulk_create(orders)
         self.message_user(request, "Data from CSV was imported")
         return redirect("..")
