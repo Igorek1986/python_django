@@ -9,6 +9,7 @@ from django.urls import path
 from .models import Product, Order, ProductImage
 from .admin_mixins import ExportAsCSVMixin
 from .forms import CSVImportForm
+from .common import save_csv_orders
 
 
 class OrderInline(admin.TabularInline):
@@ -125,14 +126,12 @@ class OrderAdmin(admin.ModelAdmin):
                 context=context,
                 status=400,
             )
-        csv_file = TextIOWrapper(
-            form.files["csv_file"].file,
+
+        save_csv_orders(
+            file=form.files["csv_file"].file,
             encoding=request.encoding,
         )
-        reader = DictReader(csv_file)
 
-        orders = [Order(**row) for row in reader]
-        Order.objects.bulk_create(orders)
         self.message_user(request, "Data from CSV was imported")
         return redirect("..")
 
