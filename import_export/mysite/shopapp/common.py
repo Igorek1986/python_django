@@ -22,6 +22,5 @@ def save_csv_orders(file, encoding):
         print(order.id)
         for pr_id in order.id.split(" "):
             _order.products.add(pr_id)
-            _order.save()
 
     return orders
