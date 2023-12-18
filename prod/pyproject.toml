@@ -17,6 +17,7 @@ drf-spectacular = "^0.26.5"
 django-debug-toolbar = "^4.2.0"
 sentry-sdk = {extras = ["django"], version = "^1.38.0"}
 python-dotenv = "^1.0.0"
+gunicorn = "^21.2.0"
 
 
 [build-system]
